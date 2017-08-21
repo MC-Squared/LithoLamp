@@ -12,13 +12,21 @@ class LampAssembly < SolidRuby::Assembly
 
     res += Frame.new
 
-    # res += Frame.new
-    #   .rotate(z: 120)
-    #   .translate(x: -65, y: -110, z: 140/3.0)
-    #
-    # res += Frame.new
-    #   .rotate(z: -120)
-    #   .translate(x: 65, y: -110, z: 140/3.0*2)
+    res += Frame.new
+      .rotate(z: 120)
+      .translate(x: -69, y: -120, z: 140/3.0 + 1)
+
+    res += Frame.new(1)
+      .rotate(z: 120)
+      .translate(x: -69, y: -120)
+
+    res += Frame.new
+      .rotate(z: -120)
+      .translate(x: 69, y: -120, z: 140/3.0*2 + 1)
+
+    res += Frame.new(2)
+      .rotate(z: -120)
+      .translate(x: 69, y: -120)
     # always make sure the lowest statement always returns the object that you're working on
     res
   end
