@@ -51,6 +51,5 @@ class Frame < SolidRuby::Printed
       .translate(x: t.a + 0.75, y: t.c - 0.75, z:-0.5)
       .rotate(z: 120)
 
-    res.translate(y: -80)
   end
 end
