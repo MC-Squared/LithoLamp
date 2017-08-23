@@ -1,40 +1,158 @@
 $fn=64;
-rotate(a = [0, 0, 120])
-union(){cylinder(h = 20, ifn = 32, r = 80.000, $fn = 32);
-translate(v = [0, 0, 19.990])
-difference(){union(){difference(){cylinder(h = 26.657, r = 82.500, $fn = 32);
+union(){cylinder(h = 20, ifn = 24, r = 82.500, $fn = 24);
+translate(v = [0, 0, 21.990])
+difference(){cylinder(h = 2, r = 72.500, $fn = 24);
 translate(v = [0, 0, -0.010])
-cylinder(h = 26.677, ifn = 32, r = 62.500, $fn = 32);
-translate(v = [0, 0.250, -0.500])
-linear_extrude(height = 47.667){translate(v = [-82.500, 0])
-polygon(points = [[0, 0], [82.500, 0.000], [0, 47.631], [0, 0]]);
+cylinder(h = 2.020, ifn = 24, r = 71.500, $fn = 24);
 }
-translate(v = [0, 0.250, -0.500])
-linear_extrude(height = 47.667){translate(v = [82.500, 0])
-mirror(v = [1, 0])
-polygon(points = [[0, 0], [82.500, 0.000], [0, 47.631], [0, 0]]);
-}
-translate(v = [0, -155, -0.500])
-translate(v = [-83.500, 0])
-cube(size = [167, 165, 47.667]);
-translate(v = [0, -1])
-intersection(){translate(v = [0, 0, 20])
-translate(v = [-60.000, 0])
-cube(size = [120, 120, 6.667]);
-difference(){cylinder(h = 46.667, r = 82.500);
-translate(v = [0, 0, -0.010])
-cylinder(h = 46.687, r = 78.500);
+rotate(a = [0, 0, 60])
+translate(v = [0, 52.500, 20])
+difference(){difference(){difference(){difference(){translate(v = [-25.000, -3.333])
+cube(size = [50.000, 6.667, 20]);
+translate(v = [-25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 180])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
 }
 }
-translate(v = [0, 0, 20])
-translate(v = [-50.000, 0])
-cube(size = [100, 100, 6.667]);
+translate(v = [25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 270])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
 }
-translate(v = [63.250, 35.334])
-cylinder(h = 26.657, r = 2.500);
 }
-rotate(a = [0, 0, 120])
-translate(v = [63.250, 35.334, -0.500])
-cylinder(h = 47.667, r = 3.000);
+translate(v = [25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 0])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [-25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 90])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+translate(v = [15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
+translate(v = [-15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
+}
+rotate(a = [0, 0, 180])
+translate(v = [0, 52.500, 20])
+difference(){difference(){difference(){difference(){translate(v = [-25.000, -3.333])
+cube(size = [50.000, 6.667, 20]);
+translate(v = [-25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 180])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 270])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 0])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [-25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 90])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+translate(v = [15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
+translate(v = [-15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
+}
+rotate(a = [0, 0, 300])
+translate(v = [0, 52.500, 20])
+difference(){difference(){difference(){difference(){translate(v = [-25.000, -3.333])
+cube(size = [50.000, 6.667, 20]);
+translate(v = [-25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 180])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [25.000, -3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 270])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 0])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+}
+translate(v = [-25.000, 3.333])
+rotate(a = [0, 0, 0])
+rotate(a = [0, 0, 90])
+translate(v = [-5, -5])
+difference(){translate(v = [0, 0, -0.010])
+cube(size = [10, 10, 20.020]);
+translate(v = [0, 0, -0.020])
+cylinder(h = 20.040, r = 5, $fn = 64);
+}
+translate(v = [15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
+translate(v = [-15.000, 10.000, 10.000])
+rotate(a = [90, 0, 0])
+cylinder(h = 20, r = 2.250);
 }
 }
