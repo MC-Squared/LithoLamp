@@ -42,75 +42,22 @@ cylinder(h = 100.020, r = 81.500);
 translate(v = [0, 0, 20])
 translate(v = [-58.000, 0])
 cube(size = [116, 116, 98.000]);
-translate(v = [0, 0, 128.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-translate(v = [0, 0, 10.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
+translate(v = [66.560, 40.250, -0.500])
+rotate(a = [0, 0, -60])
+union(){translate(v = [-2.000, -1.000])
+cube(size = [4.000, 2, 139]);
+translate(v = [-3.000, 0])
+cylinder(h = 139, r = 1.500);
 }
 mirror(v = [1, 0])
-translate(v = [0, 0, 128.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
+translate(v = [66.560, 40.250, -0.500])
+rotate(a = [0, 0, -60])
+union(){translate(v = [-2.000, -1.000])
+cube(size = [4.000, 2, 139]);
+translate(v = [-3.000, 0])
+cylinder(h = 139, r = 1.500);
 }
-mirror(v = [1, 0])
-translate(v = [0, 0, 10.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-translate(v = [0, 0, 36.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-mirror(v = [1, 0])
-translate(v = [0, 0, 36.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-translate(v = [0, 0, 82.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-mirror(v = [1, 0])
-translate(v = [0, 0, 82.000])
-union(){translate(v = [54.787, 46.250])
-rotate(a = [0, 90, -45])
-cylinder(h = 20, r = 1.500);
-translate(v = [33.787, 46.250])
-rotate(a = [0, 90, 0])
-cylinder(h = 22.000, r = 1.500);
-}
-translate(v = [0, -44.250, -0.500])
+translate(v = [0, -41.964, -0.500])
 translate(v = [-83.500, -82.500])
 cube(size = [167, 165, 141]);
 }

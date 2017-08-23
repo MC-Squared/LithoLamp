@@ -34,7 +34,7 @@ class LampAssembly < SolidRuby::Assembly
 
     res += Frame.new(lamp_params, 2)
       .rotate(z: -120)
-      .translate(x: 2, z: thickness)
+      .translate(x: 0, z: thickness)
 
     #
     res += Frame.new(lamp_params, 3)

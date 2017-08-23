@@ -80,43 +80,53 @@ class Frame < SolidRuby::Printed
       .center_x
       .translate(z: @frame_t)
 
-    t = triangle(b: diam/2.0 - @frame_t/6.0, alpha: 60, beta: 90)
-
     # edge slots
-    # res += cylinder(d: @ridge_h, h: @z)
-    #   .translate(x: t.a, y: t.c)
-    #   #.debug
-    # res -= cylinder(d: @ridge_h + @tolerance, h: @z)
-    #   .translate(x: t.a, y: t.c)
-    #   .mirror(x: 1)
+    res -= #cylinder(d: @ridge_h, h: @z+1)
+      (cube(x: @ridge_h*2.0, y: @ridge_h, z: @z+1)
+        .center_xy +
+      cylinder(d: @ridge_h*1.5, h: @z+1)
+        .translate(x: -@ridge_h*1.5)
+      )
+        .rotate(z: -60)
+        .translate(x: t.a - @ridge_h, y: t.c + @ridge_h/3.0, z:-0.5)
+      #.debug
+    res -= #cylinder(d: @ridge_h, h: @z+1)
+      (cube(x: @ridge_h*2.0, y: @ridge_h, z: @z+1)
+        .center_xy +
+      cylinder(d: @ridge_h*1.5, h: @z+1)
+        .translate(x: -@ridge_h*1.5)
+      )
+        .rotate(z: -60)
+        .translate(x: t.a - @ridge_h, y: t.c + @ridge_h/3.0, z:-0.5)
+        .mirror(x: 1)
 
     t = triangle(b: diam/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
 
-    res -= tie_hole(t.a, t.c).translate(z: @z - @frame_t/2.0)
+    # res -= tie_hole(t.a, t.c).translate(z: @z - @frame_t/2.0)
+    #
+    # res -= tie_hole(t.a, t.c).translate(z: @frame_t/2.0)
+    #
+    # res -= tie_hole(t.a, t.c).translate(z: @z - @frame_t/2.0)
+    #   .mirror(x: 1)
+    #
+    # res -= tie_hole(t.a, t.c).translate(z: @frame_t/2.0)
+    #   .mirror(x: 1)
 
-    res -= tie_hole(t.a, t.c).translate(z: @frame_t/2.0)
-
-    res -= tie_hole(t.a, t.c).translate(z: @z - @frame_t/2.0)
-      .mirror(x: 1)
-
-    res -= tie_hole(t.a, t.c).translate(z: @frame_t/2.0)
-      .mirror(x: 1)
-
-    if @z > @step_size
-      res -= tie_hole(t.a, t.c).translate(z: @step_size - @frame_t/2.0)
-      res -= tie_hole(t.a, t.c).translate(z: @step_size - @frame_t/2.0)
-        .mirror(x: 1)
-    end
-
-    if @z > (@step_size * 2.0)
-      res -= tie_hole(t.a, t.c).translate(z: @step_size*2.0 - @frame_t/2.0)
-      res -= tie_hole(t.a, t.c).translate(z: @step_size*2.0 - @frame_t/2.0)
-        .mirror(x: 1)
-    end
+    # if @z > @step_size
+    #   res -= tie_hole(t.a, t.c).translate(z: @step_size - @frame_t/2.0)
+    #   res -= tie_hole(t.a, t.c).translate(z: @step_size - @frame_t/2.0)
+    #     .mirror(x: 1)
+    # end
+    #
+    # if @z > (@step_size * 2.0)
+    #   res -= tie_hole(t.a, t.c).translate(z: @step_size*2.0 - @frame_t/2.0)
+    #   res -= tie_hole(t.a, t.c).translate(z: @step_size*2.0 - @frame_t/2.0)
+    #     .mirror(x: 1)
+    # end
 
     # remove rear half of cylinder
     res -= cube(diam+2, diam, @z + ridge_h + 1)
       .center_xy
-      .translate(y: -t.c - @frame_t/2.5, z:-0.5)
+      .translate(y: -t.c - @frame_t/3.5, z:-0.5)
   end
 end
