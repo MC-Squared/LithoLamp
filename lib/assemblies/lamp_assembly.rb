@@ -8,7 +8,7 @@ class LampAssembly < SolidRuby::Assembly
 
   def part(show)
     # work out step size for frames
-    thickness = 10
+    thickness = 20
     full_photo_height = 100
     full_z = full_photo_height + thickness * 2.0
     step_size = full_z / 3.0
@@ -33,13 +33,21 @@ class LampAssembly < SolidRuby::Assembly
     #   .translate(z: 240)
 
     res += Frame.new(lamp_params, 2)
+      .show
       .rotate(z: -120)
       .translate(x: 0, z: thickness)
 
     #
     res += Frame.new(lamp_params, 3)
+      .show
       .rotate(z: 120)
       .translate(z: thickness)
+
+    res += Spline.new(lamp_params)
+      .show
+      .rotate(z: 180)
+      .translate(y: - 76)
+
 
     # res += Frame.new(lamp_params, 3)
     #   .translate(z: 20 + (step_size))
