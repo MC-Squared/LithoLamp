@@ -35,28 +35,20 @@ class Frame < SolidRuby::Printed
     # main frame
     res = cylinder(d: @diameter, h: @z, id: @diameter - (@frame_t*2.0), fn: @fn, ifn: @fn)
 
-    #top ridge
-    (0..2).each do |r|
-      res += circle(r: @ridge_h, fn: 36)
-        .translate(x: @diameter/2.0 - @frame_t/2.0)
-        .rotate_extrude(co: 10, fn: 64, angle: 15)
-        .rotate(z: 45 + (37.5 * r))
-        .translate(z: @z + @ridge_h/2.0)
-    end
-
     # bottom ridge
-    res -= circle(r: @ridge_h + @tolerance/2.0, fn: 36)
-      .translate(x: @diameter/2.0 - @frame_t/2.0)
-      .rotate_extrude(co: 10, fn: 64)
-      .translate(z: @ridge_h/2.0)
+    h = @ridge_h + @tolerance
+    res -= square(h)
+      .rotate(z: 45)
+      .translate(x: @diameter/2.0 - @frame_t/1.5)
+      .rotate_extrude
+      .translate(z: -Math.sqrt((h/2.0)**2 + (h/2.0)**2))
 
-    # support for bottom slot
-    # res += cylinder(
-    #   d: @diameter - @frame_t + @ridge_h*2.0 - @tolerance/1.25,
-    #   id: @diameter - @frame_t - @ridge_h*2.0 + @tolerance/1.25,
-    #   h: @ridge_h/4.0,
-    #   fn: @fn * 4, ifn: @fn * 4)
-    #   .translate(z: -0.01)
+    # top ridge
+    res += square(@ridge_h)
+      .rotate(z: 45)
+      .translate(x: @diameter/2.0 - @frame_t/1.5)
+      .rotate_extrude
+      .translate(z: @z - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
     res -= (cube(@photo_x, @frame_t*2.0, @photo_z)
       .center_x
       .translate(y: @diameter/2.0 - @frame_t*1.75) *
