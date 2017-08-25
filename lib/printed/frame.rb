@@ -1,11 +1,11 @@
 class Frame < SolidRuby::Printed
-  def initialize(lamp_params={}, steps=2) #args={step_size: 46, steps: 3, thickness: 20})
+  def initialize(lamp_params={}, steps=3) #args={step_size: 46, steps: 3, thickness: 20})
     @frame_t = lamp_params[:frame_thickness] || 20
     @diameter = lamp_params[:diameter] || 165
     @ridge_h = lamp_params[:ridge_height] || 2
-    @fn = lamp_params[:fn] || 360
+    @fn = lamp_params[:fn] || 36
     @step_size = lamp_params[:step_size] || 46
-    @tolerance = lamp_params[:tolerance] || 0.5
+    @tolerance = lamp_params[:tolerance] || 0.5 * 3
     @tie_width = lamp_params[:cable_tie_width] || 3
 
     @steps = steps
@@ -49,6 +49,12 @@ class Frame < SolidRuby::Printed
       .translate(x: @diameter/2.0 - @frame_t/1.5)
       .rotate_extrude
       .translate(z: @z - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
+
+    # window cutout for light
+    res -= cube(@photo_x-(@photo_border*2) , @diameter/3.0, @photo_z - (@photo_border*2.0))
+      .center_x
+      .translate(y: (@diameter/3.0)/2.0, z: @frame_t + @photo_border)
+
     res -= (cube(@photo_x, @frame_t*2.0, @photo_z)
       .center_x
       .translate(y: @diameter/2.0 - @frame_t*1.75) *
@@ -75,10 +81,10 @@ class Frame < SolidRuby::Printed
       .linear_extrude(h: @z + @ridge_h + 1)
       .translate(y: @tolerance/2.0, z: -0.5)
 
-    t = triangle(b: @diameter/2.0 - @frame_t/4.0, alpha: 60, beta: 90)
+    t = triangle(b: @diameter/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
 
-    # edge slots
-    res -= #cylinder(d: @ridge_h, h: @z+1)
+    # spline slots
+    res -=
       (cube(x: @ridge_h*4.0 + @tolerance, y: @ridge_h + @tolerance, z: @z+1)
         .center_xy
         .translate(x: -@ridge_h) +
@@ -86,18 +92,17 @@ class Frame < SolidRuby::Printed
         .translate(x: -@ridge_h*3.0 - @tolerance, y: -@ridge_h/4.0)
       )
         .rotate(z: -60)
-        .translate(x: t.a - @ridge_h, y: t.c + @ridge_h/3.0, z:-0.5)
+        .translate(x: t.a, y: t.c + @ridge_h*2.0, z:-0.5)
 
-    res -=
-        (cube(x: @ridge_h*4.0 + @tolerance, y: @ridge_h + @tolerance, z: @z+1)
-          .center_xy
-          .translate(x: -@ridge_h) +
-        cylinder(d: @ridge_h*1.5 + @tolerance, h: @z+1)
-          .translate(x: -@ridge_h*3.0 - @tolerance, y: -@ridge_h/4.0)
-        )
-        .rotate(z: -60)
-        .translate(x: t.a - @ridge_h, y: t.c + @ridge_h/3.0, z:-0.5)
-        .mirror(x: 1)
+    res -= (cube(x: @ridge_h*4.0 + @tolerance, y: @ridge_h + @tolerance, z: @z+1)
+        .center_xy
+        .translate(x: -@ridge_h) +
+      cylinder(d: @ridge_h*1.5 + @tolerance, h: @z+1)
+        .translate(x: -@ridge_h*3.0 - @tolerance, y: -@ridge_h/4.0)
+      )
+      .rotate(z: -60)
+      .translate(x: t.a, y: t.c + @ridge_h*2.0, z:-0.5)
+      .mirror(x: 1)
 
     t = triangle(b: @diameter/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
 
@@ -126,14 +131,18 @@ class Frame < SolidRuby::Printed
     # remove rear half of cylinder
     res -= cube(@diameter+2, @diameter, @z + (@ridge_h *2.0) + 1)
       .center_xy
-      .translate(y: -t.c - @frame_t/3.5, z:-0.5)
+      .translate(y: -@diameter/3.8 + 1, z:-0.5)
 
     # position curve-down for printing
-    # unless _show
-    #   res.translate(y: -@diameter/2.0, z: -@z/2.0)
-    #     .rotate(x: 90)
-    #     .translate(z: t.c + @frame_t/3.5)
-    # end
+    unless _show
+      res.translate(y: -@diameter/2.0, z: -@z/2.0)
+        .rotate(x: 90)
+        .translate(z: t.c + @frame_t/3.5)
+    end
+
+    # res *= import(f: 'photo.stl')
+    #   .translate(y: @diameter/2.0 - @frame_t/2.0 - 2, z: @frame_t)
+      #.debug
 
     res
   end

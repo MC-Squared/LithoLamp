@@ -46,7 +46,7 @@ class LampAssembly < SolidRuby::Assembly
     res += Spline.new(lamp_params)
       .show
       .rotate(z: 180)
-      .translate(y: - 76)
+      .translate(y: - 74.5)
 
 
     # res += Frame.new(lamp_params, 3)
