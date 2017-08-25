@@ -10,7 +10,7 @@ class Frame < SolidRuby::Printed
 
     @steps = steps
 
-    @photo_x = 120
+    @photo_x = 116
     @photo_y = 8
     @photo_border = 2
 
@@ -57,6 +57,19 @@ class Frame < SolidRuby::Printed
     #   h: @ridge_h/4.0,
     #   fn: @fn * 4, ifn: @fn * 4)
     #   .translate(z: -0.01)
+    res -= (cube(@photo_x, @frame_t*2.0, @photo_z)
+      .center_x
+      .translate(y: @diameter/2.0 - @frame_t*1.75) *
+    cylinder(d: @diameter + 0.01, h: @photo_z + 1, id: @diameter - @photo_y, fn: @fn, ifn: @fn))
+      .translate(z: @frame_t, y: 0)
+
+    #window support structure
+    # res += (cube(@photo_x - @photo_border*2.0 - @tolerance*2.0, @frame_t*3.0, @photo_z)
+    #   .center_x
+    #   .translate(y: @diameter/2.0 - @frame_t*3.0) *
+    # cylinder(d: @diameter - @photo_y, h: @photo_z - @photo_border*2.0 - @tolerance*2.0,
+    #   id: @diameter - (@frame_t*2.0), fn: @fn, ifn: @fn))
+    #   .translate(z: @frame_t + @photo_border + @tolerance)
 
     # cut cylinder into 1/3 slice
     res -= triangle(a: @diameter/2.0, alpha: 60, beta: 90)
@@ -69,24 +82,6 @@ class Frame < SolidRuby::Printed
       .translate(x: @diameter/2.0)
       .linear_extrude(h: @z + @ridge_h + 1)
       .translate(y: @tolerance/2.0, z: -0.5)
-
-    # lithophane top slot
-    res -= (cube(@photo_x, @frame_t*2.0, @frame_t + 1)
-      .center_x
-      .translate(y: @diameter/2.0 - @frame_t*1.75) *
-    cylinder(d: @diameter, h: @frame_t + 1, id: @diameter - @photo_y))
-      .translate(z: @z - @frame_t - 0.5, y: -1)
-
-    # lithophane recess
-    res -= (cube(@photo_x, @diameter, @photo_z + @photo_border)
-      .center_x *
-    cylinder(d: @diameter, h: @photo_z + @photo_border, id: @diameter - @photo_border))
-      .translate(z: @frame_t - @photo_border, y: -1)
-
-    # window cutout
-    res -= cube(@photo_x-(@photo_border*2) , @diam, @photo_z)
-      .center_x
-      .translate(z: @frame_t)
 
     t = triangle(b: @diameter/2.0 - @frame_t/4.0, alpha: 60, beta: 90)
 
