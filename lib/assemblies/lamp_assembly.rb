@@ -7,47 +7,30 @@ class LampAssembly < SolidRuby::Assembly
   skip :output
 
   def part(show)
-    # work out step size for frames
-    thickness = 20
-    full_photo_height = 100
-    full_z = full_photo_height + thickness * 2.0
-    step_size = full_z / 3.0
-
-    lamp_params= {
-      frame_thickness: thickness,
-      full_photo_height: full_photo_height,
-      diameter: 165,
-      tolerance: 0.5,
-      step_size: step_size,
-      cable_tie_width: 3
-    }
+    thickness = Params::LAMP_PARAMS[:frame_thickness]
 
     # Create a test cube
-    res = nil #Photo.new.translate(z: 20)
+    res = Photo.new.translate(y: 56, z: thickness*2)
 
-    # res += EndCap.new(lamp_params)
-    #   .translate(z: 0)
-    #
-    # res += EndCap.new(160 + 5, {step_size: step_size, steps: 1, thickness: thickness})
-    #   .rotate(y: 180, z: 120)
-    #   .translate(z: 240)
+    res += Frame.new(3)
+      .show
+      .translate(x: 0, z: thickness)
 
-    res += Frame.new(lamp_params, 2)
+    res += Frame.new(2)
       .show
       .rotate(z: -120)
       .translate(x: 0, z: thickness)
 
-    #
-    res += Frame.new(lamp_params, 3)
+    res += Frame.new(1)
       .show
       .rotate(z: 120)
       .translate(z: thickness)
 
-    res += Spline.new(lamp_params)
-      .show
+    res += Spline.new.show
       .rotate(z: 180)
       .translate(y: - 74.5)
 
+    res += Base.new.translate(z: -20)
 
     # res += Frame.new(lamp_params, 3)
     #   .translate(z: 20 + (step_size))

@@ -1,18 +1,18 @@
 class Frame < SolidRuby::Printed
-  def initialize(lamp_params={}, steps=3) #args={step_size: 46, steps: 3, thickness: 20})
-    @frame_t = lamp_params[:frame_thickness] || 20
-    @diameter = lamp_params[:diameter] || 165
-    @ridge_h = lamp_params[:ridge_height] || 2
-    @fn = lamp_params[:fn] || 36
-    @step_size = lamp_params[:step_size] || 46
-    @tolerance = lamp_params[:tolerance] || 0.5 * 3
-    @tie_width = lamp_params[:cable_tie_width] || 3
+  def initialize(steps=3) #args={step_size: 46, steps: 3, thickness: 20})
 
+    lp = Params::LAMP_PARAMS
     @steps = steps
-
-    @photo_x = 116
-    @photo_y = 8
-    @photo_border = 2
+    @ridge_h = lp[:ridge_height]
+    @step_size = lp[:step_size]
+    @diameter = lp[:diameter]
+    @tolerance = lp[:tolerance]
+    @frame_t = lp[:frame_thickness]
+    @photo_border = lp[:photo_border]
+    @photo_x = lp[:photo_x]
+    @photo_y = lp[:photo_y]
+    @photo_z = lp[:photo_z]
+    @steps = steps
 
     @x = @photo_x
     @y = @photo_y
@@ -33,7 +33,7 @@ class Frame < SolidRuby::Printed
 
   def part(_show)
     # main frame
-    res = cylinder(d: @diameter, h: @z, id: @diameter - (@frame_t*2.0), fn: @fn, ifn: @fn)
+    res = cylinder(d: @diameter, h: @z, id: @diameter - (@frame_t*2.0))
 
     # bottom ridge
     h = @ridge_h + @tolerance
@@ -58,7 +58,7 @@ class Frame < SolidRuby::Printed
     res -= (cube(@photo_x, @frame_t*2.0, @photo_z)
       .center_x
       .translate(y: @diameter/2.0 - @frame_t*1.75) *
-    cylinder(d: @diameter + 0.01, h: @photo_z + 1, id: @diameter - @photo_y, fn: @fn, ifn: @fn))
+    cylinder(d: @diameter + 0.01, h: @photo_z + 1, id: @diameter - @photo_y))
       .translate(z: @frame_t, y: 0)
 
     #window support structure
