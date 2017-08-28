@@ -5,17 +5,26 @@ class Base < SolidRuby::Printed
     @diameter = lp[:diameter]
     @tolerance = lp[:tolerance]
     @frame_t = lp[:frame_thickness]
+    @pos_ridge = pos_ridge
+  end
+
+  def ridge
+    square(@ridge_h)
+      .rotate(z: 45)
+      .translate(x: @diameter/2.0 - @frame_t/1.5)
+      .rotate_extrude
+      .translate(z: @frame_t - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
   end
 
   def part(_show)
     res = cylinder(d: @diameter, h: @frame_t)
 
     # ridge
-    res += square(@ridge_h)
-      .rotate(z: 45)
-      .translate(x: @diameter/2.0 - @frame_t/1.5)
-      .rotate_extrude
-      .translate(z: @frame_t - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
+    if @pos_ridge
+      res += ridge
+    else
+      res -= ridge
+    end
 
     (0..2).each do |i|
       res -= Spline.new(0.3, true)
@@ -24,6 +33,8 @@ class Base < SolidRuby::Printed
         .rotate(z: 60 + i*120)
 
     end
+
+
 
     # res += Frame.new(1)
     #   .rotate(x: -90)
