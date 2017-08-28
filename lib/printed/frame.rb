@@ -13,6 +13,7 @@ class Frame < SolidRuby::Printed
     @photo_y = lp[:photo_y]
     @photo_z = lp[:photo_z]
     @steps = steps
+    @tie_width = lp[:cable_tie_width]
 
     @x = @photo_x
     @y = @photo_y
@@ -21,14 +22,15 @@ class Frame < SolidRuby::Printed
     @photo_z = @z - (@frame_t*2.0)
   end
 
-  def tie_hole(x, y)
-    res = cylinder(d: @tie_width, h: @frame_t)
-      .rotate(y: 90, z: -45)
-      .translate(x: x - @frame_t/2.5, y: y + @frame_t/2.0)
-
-    res += cylinder(d: @tie_width, h: @frame_t*1.1)
-      .rotate(y: 90, z: 0)
-      .translate(x: x - @frame_t*1.45, y: y + @frame_t/2.0)
+  def tie_anchor
+      (cube(@frame_t, @frame_t, @tie_width * 3.0).center_xy -
+      cylinder(d: @tie_width + @tolerance, h: @frame_t)
+        .rotate(x: 90, z: -45)
+        .translate(x: @frame_t/4.0, z: @tie_width*1.5) -
+      cylinder(d: @tie_width + @tolerance, h: @frame_t)
+        .translate(x: -@frame_t/8.0, y: -@frame_t/4.0, z: -0.5))
+      .translate(x: -@tie_width/2.0, y: -@tie_width*2.0)
+      .rotate(z: -90)
   end
 
   def part(_show)
@@ -81,27 +83,17 @@ class Frame < SolidRuby::Printed
       .linear_extrude(h: @z + @ridge_h + 1)
       .translate(y: @tolerance/2.0, z: -0.5)
 
-    t = triangle(b: @diameter/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
+    t = triangle(b: @diameter/2.0 - @frame_t/2.5, alpha: 60, beta: 90)
 
     # spline slots
-    res -=
-      (cube(x: @ridge_h*4.0 + @tolerance, y: @ridge_h + @tolerance, z: @z+1)
-        .center_xy
-        .translate(x: -@ridge_h) +
-      cylinder(d: @ridge_h*1.5 + @tolerance, h: @z+1)
-        .translate(x: -@ridge_h*3.0 - @tolerance, y: -@ridge_h/4.0)
-      )
-        .rotate(z: -60)
-        .translate(x: t.a, y: t.c + @ridge_h*2.0, z:-0.5)
-
-    res -= (cube(x: @ridge_h*4.0 + @tolerance, y: @ridge_h + @tolerance, z: @z+1)
-        .center_xy
-        .translate(x: -@ridge_h) +
-      cylinder(d: @ridge_h*1.5 + @tolerance, h: @z+1)
-        .translate(x: -@ridge_h*3.0 - @tolerance, y: -@ridge_h/4.0)
-      )
+    res -= Spline.new(3.5, true).show
       .rotate(z: -60)
-      .translate(x: t.a, y: t.c + @ridge_h*2.0, z:-0.5)
+      .translate(x: t.a, y: t.c)
+
+    res -= Spline.new(@steps + 0.5, true).show
+      .rotate(z: -60)
+      .translate(x: t.a, y: t.c, z: -1)
+      .rotate(z: 120)
       .mirror(x: 1)
 
     t = triangle(b: @diameter/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
