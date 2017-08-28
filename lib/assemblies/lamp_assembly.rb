@@ -10,28 +10,31 @@ class LampAssembly < SolidRuby::Assembly
     thickness = Params::LAMP_PARAMS[:frame_thickness]
 
     # Create a test cube
-    res = Photo.new.translate(y: 56, z: thickness*2)
+    res = nil #Photo.new.translate(y: 56, z: thickness*2)
 
     res += Frame.new(3)
       .show
       .translate(x: 0, z: thickness)
 
-    res += Frame.new(2)
-      .show
-      .rotate(z: -120)
-      .translate(x: 0, z: thickness)
+    # res += Frame.new(2)
+    #   .show
+    #   .rotate(z: -120)
+    #   .translate(x: 0, z: thickness)
 
     res += Frame.new(1)
       .show
       .rotate(z: 120)
       .translate(z: thickness)
 
-    res += Spline.new.show
-      .rotate(z: 180)
-      .translate(y: - 74.5)
+    # res += Spline.new.show
+    #   .rotate(z: 180)
+    #   .translate(y: - 74.5)
 
-    res += Base.new.translate(z: -20)
+    #res += TopCap.new.show.translate(z: 160)
 
+    res += BottomCap.new #.rotate(x: 180, z: 60).translate(z: 200)
+
+    res += Base.new.translate(z: - 30)
     # res += Frame.new(lamp_params, 3)
     #   .translate(z: 20 + (step_size))
     #
