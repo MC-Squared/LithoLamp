@@ -94,11 +94,24 @@ class Frame < SolidRuby::Printed
       .rotate(z: -60)
       .translate(x: t.a, y: t.c, z: -1)
       .rotate(z: 120)
+
+    t = triangle(b: @diameter/2.0 - @frame_t, alpha: 50, beta: 90)
+
+    res += tie_anchor
+      .translate(x: t.a, y: t.c, z: @frame_t/4.0)
+
+    res += tie_anchor
+      .translate(x: t.a, y: t.c, z: @frame_t/4.0)
       .mirror(x: 1)
 
-    t = triangle(b: @diameter/2.0 - @frame_t/2.0, alpha: 60, beta: 90)
+    res += tie_anchor
+      .translate(x: t.a, y: t.c, z: @z - (@tie_width*3.0) - @frame_t/4.0)
 
-    # res -= tie_hole(t.a, t.c).translate(z: @z - @frame_t/2.0)
+    res += tie_anchor
+      .translate(x: t.a, y: t.c, z: @z - (@tie_width*3.0) - @frame_t/4.0)
+      .mirror(x: 1)
+
+    #return res
     #
     # res -= tie_hole(t.a, t.c).translate(z: @frame_t/2.0)
     #

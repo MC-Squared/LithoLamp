@@ -1,4 +1,4 @@
-$fn=320;
+$fn=36;
 translate(v = [0, 0, 1.000])
 rotate(a = [-90, 0, 0])
 union(){translate(v = [-10.000, -1.000])

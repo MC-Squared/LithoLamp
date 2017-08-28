@@ -1,11 +1,13 @@
 class Base < SolidRuby::Printed
-  def initialize
+  def initialize(pos_ridge=true)
     lp = Params::LAMP_PARAMS
     @ridge_h = lp[:ridge_height]
     @diameter = lp[:diameter]
     @tolerance = lp[:tolerance]
     @frame_t = lp[:frame_thickness]
+    @step_size = lp[:step_size]
     @pos_ridge = pos_ridge
+    @tie_width = lp[:cable_tie_width]
   end
 
   def ridge
@@ -14,6 +16,13 @@ class Base < SolidRuby::Printed
       .translate(x: @diameter/2.0 - @frame_t/1.5)
       .rotate_extrude
       .translate(z: @frame_t - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
+  end
+
+  def tie_anchor
+    cube(@tie_width, @frame_t/2.0, @frame_t/1.75)
+      .center_xy.fillet(r: 1.5, edges: :vertical) -
+     cylinder(d: @tie_width + @tolerance, h: @frame_t)
+       .rotate(y: 90).translate(x: -@frame_t/2.0, z: @frame_t/3.0)
   end
 
   def part(_show)
@@ -32,6 +41,9 @@ class Base < SolidRuby::Printed
         .translate(y: @diameter/2.0 - @frame_t/3.0 - @tolerance/2.0, z: @frame_t - (@step_size*0.3) + 0.05)
         .rotate(z: 60 + i*120)
 
+        res += tie_anchor
+          .translate(y: @diameter/2.0 - @frame_t*2.0, z: @frame_t - 0.05)
+          .rotate(z: 60 + i*120)
     end
 
 
