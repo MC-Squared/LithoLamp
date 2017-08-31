@@ -88,7 +88,7 @@ class Frame < SolidRuby::Printed
     # spline slots
     res -= Spline.new(3.5, true).show
       .rotate(z: -60)
-      .translate(x: t.a, y: t.c)
+      .translate(x: t.a, y: t.c, z: -1)
 
     res -= Spline.new(@steps + 0.5, true).show
       .rotate(z: -60)

@@ -48,6 +48,7 @@ class Cap < SolidRuby::Printed
     end
 
 
+
     #res.rotate(x: 180).translate(z: @frame_t)
     # res += Frame.new(1)
     #   .rotate(x: -90)
