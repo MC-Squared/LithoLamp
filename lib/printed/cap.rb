@@ -9,6 +9,7 @@ class Cap < SolidRuby::Printed
     @pos_ridge = false
     @tie_width = lp[:cable_tie_width]
     @anchor_offset = 0
+    @cap_h = @frame_t
   end
 
   def ridge
@@ -16,7 +17,7 @@ class Cap < SolidRuby::Printed
       .rotate(z: 45)
       .translate(x: @diameter/2.0 - @frame_t/1.5)
       .rotate_extrude
-      .translate(z: @frame_t - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
+      .translate(z: @cap_h - Math.sqrt((@ridge_h/2.0)**2 + (@ridge_h/2.0)**2))
   end
 
   def tie_anchor
@@ -27,7 +28,7 @@ class Cap < SolidRuby::Printed
   end
 
   def part(_show)
-    res = cylinder(d: @diameter, h: @frame_t)
+    res = cylinder(d: @diameter, h: @cap_h)
 
     # ridge
     if @pos_ridge
@@ -39,11 +40,11 @@ class Cap < SolidRuby::Printed
     (0..2).each do |i|
       res -= Spline.new(0.3, true)
         .rotate(x: 90)
-        .translate(y: @diameter/2.0 - @frame_t/3.0 - @tolerance/2.0, z: @frame_t - (@step_size*0.3) + 0.05)
+        .translate(y: @diameter/2.0 - @frame_t/3.0 - @tolerance/2.0, z: @cap_h - (@step_size*0.3) + 0.05)
         .rotate(z: 60 + i*120)
 
         res += tie_anchor
-          .translate(y: @diameter/2.0 - @frame_t*2.0 + @anchor_offset, z: @frame_t - 0.05)
+          .translate(y: @diameter/2.0 - @frame_t*2.0 + @anchor_offset, z: @cap_h - 0.05)
           .rotate(z: 60 + i*120)
     end
 

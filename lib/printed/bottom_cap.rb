@@ -3,6 +3,7 @@ class BottomCap < Cap
     super
     @pos_ridge = true
     @anchor_offset += @frame_t/2.0
+    @cap_h = @frame_t/2.0
   end
 
   def part(_show)
