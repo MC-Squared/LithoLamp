@@ -8,6 +8,8 @@ class LampAssembly < SolidRuby::Assembly
 
   def part(show)
     thickness = Params::LAMP_PARAMS[:frame_thickness]
+    diameter = Params::LAMP_PARAMS[:diameter]
+    step_size = Params::LAMP_PARAMS[:step_size]
 
     # Create a test cube
     res = nil #Photo.new.translate(y: 56, z: thickness*2)
@@ -16,25 +18,47 @@ class LampAssembly < SolidRuby::Assembly
       .show
       .translate(x: 0, z: thickness)
 
-    # res += Frame.new(2)
-    #   .show
-    #   .rotate(z: -120)
-    #   .translate(x: 0, z: thickness)
+    res += Frame.new(2)
+      .show
+      .rotate(z: -120)
+      .translate(x: 0, z: thickness)
 
     res += Frame.new(1)
       .show
       .rotate(z: 120)
       .translate(z: thickness)
 
+    res += Frame.new(3)
+      .show
+      .rotate(z: 120)
+      .translate(z: step_size*1.0 + thickness*1.0)
+
+    res += Frame.new(3)
+      .show
+      .rotate(z: -120)
+      .translate(z: step_size*2.0 + thickness*1.0)
+
+    res += Frame.new(2)
+      .show
+      .rotate(z: 0)
+      .translate(z: step_size*3.0 + thickness*1.0)
+
+    res += Frame.new(1)
+      .show
+      .rotate(z: 120)
+      .translate(z: step_size*4.0 + thickness*1.0)
+
     # res += Spline.new.show
-    #   .rotate(z: 180)
-    #   .translate(y: - 74.5)
+    #   .translate(y: diameter/2.0 - thickness/2.5)
+    #   .rotate(z: 60)
+      #.debug
 
-    #res += TopCap.new.show.translate(z: 160)
+    res += TopCap.new.show.translate(z: step_size * 5.0 + thickness)
 
-    res += BottomCap.new #.rotate(x: 180, z: 60).translate(z: 200)
+    res += BottomCap.new.translate(z: thickness/2.0) #.rotate(x: 180, z: 60).translate(z: 200)
 
-    res += Base.new.translate(z: - 30)
+    res += Base.new #.translate(z: - thickness/2.0)
+
     # res += Frame.new(lamp_params, 3)
     #   .translate(z: 20 + (step_size))
     #
